@@ -1,0 +1,3 @@
+A ideia para a solução do exercício foi a criação de uma api que utiliza o MongoDB como banco de dados. 
+Uma coleção de exemplo está nesse diretório, com o nome pipoCollection. 
+Os endpoints só podem ser acessados com o token que é gerado na request getAuth usando as credenciais "user" e "pass". (Somente a fim de demonstração)"

@@ -1,0 +1,10 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    mongodb:
+      database: test
+      port: 27017
+      host: localhost
+      auto-index-creation: true
