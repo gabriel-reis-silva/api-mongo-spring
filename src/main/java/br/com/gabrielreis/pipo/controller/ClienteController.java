@@ -55,7 +55,7 @@ public class ClienteController {
             clienteService.deleteCliente(id);
             return ResponseEntity.status(200).body("Cliente de id: " + id + " deletado");
         } else {
-            return ResponseEntity.status(200).body("Cliente de id: " + id + " não encontrado");
+            return ResponseEntity.status(404).body("Cliente de id: " + id + " não encontrado");
         }
     }
 

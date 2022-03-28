@@ -19,7 +19,6 @@ import java.util.List;
 @Document
 public class Cliente {
 
-    @JsonIgnore
     @Id
     String id;
 
