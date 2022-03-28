@@ -7,6 +7,7 @@ import br.com.gabrielreis.pipo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Autowired
     BeneficioRepository beneficioRepository;
 
+    @Autowired
+    BeneficioService beneficioService;
+
     @Override
     public List<Cliente> getClientes() {
         return clienteRepository.findAll();
@@ -26,11 +30,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente postCliente(Cliente cliente) {
-        Beneficio beneficio = this.beneficioRepository.findById(cliente.getBeneficio().getId())
-                .orElseThrow(() ->
-                        new IllegalArgumentException
-                                ("Benefício de id:" + cliente.getBeneficio().getId() + " Não encontrado"));
-        cliente.setBeneficio(beneficio);
+        List<Beneficio> lista = new ArrayList<>();
+        for (int i = 0; i < cliente.getBeneficio().size(); i++) {
+            lista.add(beneficioRepository.findById(cliente.getBeneficio().get(i).getId()).get());
+        }
+        cliente.setBeneficio(lista);
         return clienteRepository.save(cliente);
     }
 
