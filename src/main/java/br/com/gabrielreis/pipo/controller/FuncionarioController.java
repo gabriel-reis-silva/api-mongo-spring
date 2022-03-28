@@ -56,47 +56,47 @@ public class FuncionarioController {
         }
     }
 
-    @ApiOperation(value = "Atualiza um Funcionário pelo id", authorizations = {@Authorization(value = "Bearer token")})
-    @PutMapping("/{id}")
-    public ResponseEntity updateById(@PathVariable String id, @RequestBody Funcionario funcionarioAtributo) {
-        Optional<Funcionario> funcionario = funcionarioService.findById(id);
-        if (funcionario.isPresent()) {
-            if (funcionarioAtributo.getNome() != null) {
-                funcionario.get().setNome(funcionarioAtributo.getNome());
-            }
-            if (funcionarioAtributo.getCpf() != null) {
-                funcionario.get().setCpf(funcionarioAtributo.getCpf());
-            }
-            if (funcionarioAtributo.getDataAdmissao() != null) {
-                funcionario.get().setDataAdmissao(funcionarioAtributo.getDataAdmissao());
-            }
-            if (funcionarioAtributo.getEmail() != null) {
-                funcionario.get().setEmail(funcionarioAtributo.getEmail());
-            }
-            if (funcionarioAtributo.getEndereco() != null) {
-                funcionario.get().setEndereco(funcionarioAtributo.getEndereco());
-            }
-            if (funcionarioAtributo.getPeso() != null) {
-                funcionario.get().setPeso(funcionarioAtributo.getPeso());
-            }
-            if (funcionarioAtributo.getAltura() != null) {
-                funcionario.get().setAltura(funcionarioAtributo.getAltura());
-            }
-            if (funcionarioAtributo.getHorasMeditadas() != null) {
-                funcionario.get().setHorasMeditadas(funcionarioAtributo.getHorasMeditadas());
-            }
-            if (funcionarioAtributo.getBeneficios() != null) {
-                Beneficio beneficio = this.beneficioservice.getBeneficioById(funcionario.get().getBeneficios().getId())
-                        .orElseThrow(() ->
-                                new IllegalArgumentException
-                                        ("Benefício de id:" + funcionario.get().getBeneficios().getId() + " Não encontrado"));
-                funcionario.get().setBeneficios(beneficio);
-            }
-            funcionarioService.postFuncionario(funcionario.get());
-            return ResponseEntity.status(200).build();
-        }
-        return ResponseEntity.status(404).body("Funcionario não encontrado");
-    }
+//    @ApiOperation(value = "Atualiza um Funcionário pelo id", authorizations = {@Authorization(value = "Bearer token")})
+//    @PutMapping("/{id}")
+//    public ResponseEntity updateById(@PathVariable String id, @RequestBody Funcionario funcionarioAtributo) {
+//        Optional<Funcionario> funcionario = funcionarioService.findById(id);
+//        if (funcionario.isPresent()) {
+//            if (funcionarioAtributo.getNome() != null) {
+//                funcionario.get().setNome(funcionarioAtributo.getNome());
+//            }
+//            if (funcionarioAtributo.getCpf() != null) {
+//                funcionario.get().setCpf(funcionarioAtributo.getCpf());
+//            }
+//            if (funcionarioAtributo.getDataAdmissao() != null) {
+//                funcionario.get().setDataAdmissao(funcionarioAtributo.getDataAdmissao());
+//            }
+//            if (funcionarioAtributo.getEmail() != null) {
+//                funcionario.get().setEmail(funcionarioAtributo.getEmail());
+//            }
+//            if (funcionarioAtributo.getEndereco() != null) {
+//                funcionario.get().setEndereco(funcionarioAtributo.getEndereco());
+//            }
+//            if (funcionarioAtributo.getPeso() != null) {
+//                funcionario.get().setPeso(funcionarioAtributo.getPeso());
+//            }
+//            if (funcionarioAtributo.getAltura() != null) {
+//                funcionario.get().setAltura(funcionarioAtributo.getAltura());
+//            }
+//            if (funcionarioAtributo.getHorasMeditadas() != null) {
+//                funcionario.get().setHorasMeditadas(funcionarioAtributo.getHorasMeditadas());
+//            }
+//            if (funcionarioAtributo.getBeneficios() != null) {
+//                Beneficio beneficio = this.beneficioservice.getBeneficioById(funcionario.get().getBeneficios().getId())
+//                        .orElseThrow(() ->
+//                                new IllegalArgumentException
+//                                        ("Benefício de id:" + funcionario.get().getBeneficios().getId() + " Não encontrado"));
+//                funcionario.get().setBeneficios(beneficio);
+//            }
+//            funcionarioService.postFuncionario(funcionario.get());
+//            return ResponseEntity.status(200).build();
+//        }
+//        return ResponseEntity.status(404).body("Funcionario não encontrado");
+//    }
 
     @ApiOperation(value = "Retorna um Funcionário pelo id", authorizations = {@Authorization(value = "Bearer token")})
     @GetMapping("/{id}")

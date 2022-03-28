@@ -2,6 +2,7 @@ package br.com.gabrielreis.pipo;
 
 import br.com.gabrielreis.pipo.model.Beneficio;
 import br.com.gabrielreis.pipo.model.Cliente;
+import br.com.gabrielreis.pipo.model.Funcionario;
 import br.com.gabrielreis.pipo.repository.BeneficioRepository;
 import br.com.gabrielreis.pipo.repository.ClienteRepository;
 import br.com.gabrielreis.pipo.repository.FuncionarioRepository;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -35,6 +37,8 @@ public class PipoApplication {
             beneficioRepository.insert(List.of(beneficio, beneficio1, beneficio2, beneficio3));
 
             clienteRepository.insert(List.of(cliente, cliente1));
+
+            Funcionario funcionario = new Funcionario("Julio Roberto", "117.545.130-42", new Date(), "julio@email.com","Rua Julina", 95.0, 1.96, 5.5, List.of(beneficio, beneficio2));
 
         };
     }

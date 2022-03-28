@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 @RestController
 @Api(value = "API de benefícios pipo saúde")
@@ -29,21 +30,26 @@ public class FichaController {
     MongoTemplate mongoTemplate;
 
     @ApiOperation(value = "Retorna a ficha de um Funcionario pelo seu id", authorizations = {@Authorization(value = "Bearer token")})
-    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getBeneficioByFuncionario(@RequestParam String id) {
-        System.out.println("id"+id);
+        System.out.println("id" + id);
         Optional<Funcionario> funcionario = funcionarioService.findById(id);
-        if(funcionario.isPresent()) {
+        StringJoiner resposta = new StringJoiner(", ");
+        if (funcionario.isPresent()) {
             System.out.println(funcionario.get());
-            Beneficio beneficio = funcionario.get().getBeneficios();
-            if (funcionarioService.existsById(id) || beneficio != null) {
-                List<Object> lista = new ArrayList<>();
-                for (int i = 0; i < beneficio.getCamposFuncionario().size(); i++) {
-                    lista.add(funcionario.get().selectField(beneficio.getCamposFuncionario().get(i)));
+            List<Beneficio> beneficio = funcionario.get().getBeneficios();
+            for (int iB = 0; iB < beneficio.size(); iB++) {
+                if (funcionarioService.existsById(id)) {
+                    List<Object> lista = new ArrayList<>();
+                    for (int i = 0; i < beneficio.get(iB).getCamposFuncionario().size(); i++) {
+                        lista.add(funcionario.get().selectField(beneficio.get(iB).getCamposFuncionario().get(i)));
+                    }
+                    System.out.println("lista" + lista);
+                    resposta.add("{\"nomeBeneficio\":\"" + beneficio.get(iB).getNome() + "\"}," + "{\"dadosFuncionario\":" + lista + "}");
+                    System.out.println("RESPOSTA " + resposta);
                 }
-                System.out.println("lista" + lista);
-                return ResponseEntity.status(200).body("[{\"nomeBeneficio\":\""+beneficio.getNome()+"\"},"+"{\"dadosFuncionario\":"+lista+"}]");
             }
+            return ResponseEntity.status(200).body("[" + resposta + "]");
         }
         return ResponseEntity.status(404).body("Benefício ou Funcionário não encontrado");
     }

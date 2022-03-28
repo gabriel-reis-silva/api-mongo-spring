@@ -5,6 +5,7 @@ import br.com.gabrielreis.pipo.model.Cliente;
 import br.com.gabrielreis.pipo.repository.BeneficioRepository;
 import br.com.gabrielreis.pipo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,9 +21,6 @@ public class ClienteServiceImpl implements ClienteService {
     @Autowired
     BeneficioRepository beneficioRepository;
 
-    @Autowired
-    BeneficioService beneficioService;
-
     @Override
     public List<Cliente> getClientes() {
         return clienteRepository.findAll();
@@ -31,9 +29,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente postCliente(Cliente cliente) {
         List<Beneficio> lista = new ArrayList<>();
-        for (int i = 0; i < cliente.getBeneficio().size(); i++) {
-            lista.add(beneficioRepository.findById(cliente.getBeneficio().get(i).getId()).get());
-        }
+            for (int i = 0; i < cliente.getBeneficio().size(); i++) {
+                lista.add(beneficioRepository.findById(cliente.getBeneficio().get(i).getId()).get());
+            }
         cliente.setBeneficio(lista);
         return clienteRepository.save(cliente);
     }

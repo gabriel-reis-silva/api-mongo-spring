@@ -34,7 +34,7 @@ public class Funcionario {
     Double peso;
     Double altura;
     Double horasMeditadas;
-    Beneficio beneficios;
+    List<Beneficio> beneficios;
 
     public Object selectField(Integer position) {
         switch (position) {
@@ -43,7 +43,7 @@ public class Funcionario {
             case 2:
                return "{\"cpf\":\""+getCpf()+"\"}";
             case 3:
-                return "{\"dataAdmissao\":"+getDataAdmissao()+"}";
+                return "{\"dataAdmissao\":\""+getDataAdmissao()+"\"}";
             case 4:
                 return "{\"email\":\""+getEmail()+"\"}";
             case 5:
@@ -59,7 +59,7 @@ public class Funcionario {
         }
     }
 
-    public Funcionario(String nome, String cpf, Date dataAdmissao, String email, String endereco, Double peso, Double altura, Double horasMeditadas, Beneficio beneficios) {
+    public Funcionario(String nome, String cpf, Date dataAdmissao, String email, String endereco, Double peso, Double altura, Double horasMeditadas, List<Beneficio> beneficios) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataAdmissao = dataAdmissao;
