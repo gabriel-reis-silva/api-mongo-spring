@@ -4,7 +4,7 @@ spring:
       matching-strategy: ant_path_matcher
   data:
     mongodb:
-      database: test
+      database: api-mongo-spring
       port: 27017
       host: localhost
       auto-index-creation: true
