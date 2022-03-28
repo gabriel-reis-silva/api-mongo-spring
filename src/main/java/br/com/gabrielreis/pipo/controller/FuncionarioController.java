@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static br.com.gabrielreis.pipo.constants.SecurityConstants.PRIVATE_URL;
@@ -86,11 +88,15 @@ public class FuncionarioController {
                 funcionario.get().setHorasMeditadas(funcionarioAtributo.getHorasMeditadas());
             }
             if (funcionarioAtributo.getBeneficios() != null) {
-                Beneficio beneficio = this.beneficioservice.getBeneficioById(funcionario.get().getBeneficios().getId())
-                        .orElseThrow(() ->
-                                new IllegalArgumentException
-                                        ("Benefício de id:" + funcionario.get().getBeneficios().getId() + " Não encontrado"));
-                funcionario.get().setBeneficios(beneficio);
+                for (int i = 0; i < funcionarioAtributo.getBeneficios().size(); i++) {
+                    if (funcionarioAtributo.getBeneficios().get(i) != null) {
+                        List<Beneficio> lista = new ArrayList<>();
+                        lista.add(funcionarioAtributo.getBeneficios().get(i));
+                        funcionario.get().setBeneficios(lista);
+                    } else {
+                        return ResponseEntity.status(404).body("Beneficio não encontrado");
+                    }
+                }
             }
             funcionarioService.postFuncionario(funcionario.get());
             return ResponseEntity.status(200).build();

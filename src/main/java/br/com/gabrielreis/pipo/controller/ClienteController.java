@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static br.com.gabrielreis.pipo.constants.SecurityConstants.PRIVATE_URL;
@@ -53,7 +55,7 @@ public class ClienteController {
             clienteService.deleteCliente(id);
             return ResponseEntity.status(200).body("Cliente de id: " + id + " deletado");
         } else {
-            return ResponseEntity.status(200).body("Cliente de id: " + id + " não encontrado");
+            return ResponseEntity.status(404).body("Cliente de id: " + id + " não encontrado");
         }
     }
 
@@ -68,7 +70,9 @@ public class ClienteController {
             if (clienteAtributo.getBeneficio() != null) {
                 Optional<Beneficio> beneficio = beneficioService.getBeneficioById(codBeneficio);
                 if (beneficio.isPresent()) {
-                    cliente.get().setBeneficio(beneficio.get());
+                    List<Beneficio> lista = new ArrayList<>();
+                    lista.add(beneficio.get());
+                    cliente.get().setBeneficio(lista);
                 } else {
                     return ResponseEntity.status(404).body("Beneficio não encontrado");
                 }

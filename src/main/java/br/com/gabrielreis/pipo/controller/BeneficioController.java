@@ -33,6 +33,9 @@ public class BeneficioController {
     @GetMapping("{id}")
     public ResponseEntity getById(@RequestParam String id) {
         Optional<Beneficio> beneficio = beneficioService.getBeneficioById(id);
+        if(beneficio.isEmpty()){
+            return ResponseEntity.status(404).body("Benefício não encontrado");
+        }
         return ResponseEntity.status(200).body(beneficio);
     }
 
@@ -46,8 +49,9 @@ public class BeneficioController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@RequestParam String id) {
         if (beneficioService.getBeneficioById(id).isEmpty()) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.status(404).body("Benefício de id: " + id + " não encontrado");
         }
+        beneficioService.deleteByid(id);
         return ResponseEntity.status(200).body("Benefício de id: " + id + " deletado.");
     }
 

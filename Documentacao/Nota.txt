@@ -1,0 +1,7 @@
+Conforme solicitado na documentação do exercício, os clientes
+1) Acme Co, que oferece para seus funcionários os benefícios Norte Europa
+e Dental Sorriso
+2) Tio Patinhas Bank, que oferece para seus funcionários os benefícios
+Pampulha Intermédica, Dental Sorriso e Mente Sã, Corpo São
+
+Já são inseridos assim que a aplicação é executada, tais como todos os benefícios citados na documentação.

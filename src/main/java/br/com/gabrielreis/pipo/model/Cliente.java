@@ -6,7 +6,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,11 +19,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Cliente {
 
-    @JsonIgnore
+    @Id
     String id;
 
     String nome;
 
-    Beneficio beneficio;
+    List<Beneficio> beneficio;
 
+    public Cliente(String nome, List<Beneficio> beneficio) {
+        this.nome = nome;
+        this.beneficio = beneficio;
+    }
 }
